@@ -1729,6 +1729,13 @@ public class TurnitinReviewServiceImpl extends BaseContentReviewService {
 				}
 
 				String cid = currentItem.getSiteId();
+				// Adding check to see if site exist.. surely if site has been deleted not processing should happen??
+				try {
+					siteService.getSite(cid);
+				} catch (IdUnusedException e) {
+					log.error("Unable to fetch site in getAbsoluteInstructorInfo: " + cid, e);
+					continue;
+				}				
 				String tem = getTEM(cid);
 
 				String utp = "2";
